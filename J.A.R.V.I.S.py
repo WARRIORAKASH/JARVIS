@@ -12,6 +12,9 @@ import webbrowser
 from plyer import notification
 from pygame import mixer
 import speedtest
+import cv2
+from PIL import Image
+import pytesseract
 
 for i in range(3):
     a = input("Enter Password to open JARVIS : ")
@@ -365,3 +368,29 @@ if __name__ == "__main__":
                     speak("Enter email body")
                     body = input("Enter Email Body : ")
                     send_email(subject, body, to_email)
+
+                # Image to Text
+                elif "read" in query:
+                    camera = cv2.VideoCapture(0)
+                    while True:
+                        _, image = camera.read()
+                        cv2.imshow('Text detection', image)
+                        if cv2.waitKey(1) & 0xFF == ord('s'):
+                            cv2.imwrite('image.jpg', image)
+                            break
+                    camera.release()
+                    cv2.destroyAllWindows()
+
+                    def tesseract():
+                        path_to_tesseract = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+                        Imagepath = "image.jpg"
+                        pytesseract.pytesseract.tesseract_cmd = path_to_tesseract
+                        text = pytesseract.image_to_string(
+                            Image.open(Imagepath))
+                        print(text[:-1])
+                        speak(text[:-1])
+                    tesseract()
+
+                # Multi Language Translator
+                elif "translate" in query:
+                    pass
