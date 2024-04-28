@@ -70,6 +70,7 @@ def tell_joke():
     try:
         # You can customize the joke category
         joke = pyjokes.get_joke(category='all')
+        print(joke)
         speak(joke)
     except pyjokes.pyjokes.PyJokesException:
         speak("Sorry, I couldn't fetch a joke at the moment.")
@@ -390,6 +391,25 @@ if __name__ == "__main__":
                         print(text[:-1])
                         speak(text[:-1])
                     tesseract()
+
+                # QR Code
+                elif "qr" in query:
+                    cap = cv2.VideoCapture(0)
+                    detector = cv2.QRCodeDetector()
+                    while True:
+                        _, img = cap.read()
+                        data, _, _ = detector.detectAndDecode(img)
+
+                        if data:
+                            a = data
+                            break
+                        cv2.imshow('QR Code Scanner', img)
+                        if cv2.waitKey(1) == ord('q'):
+                            break
+                    if a:
+                        webbrowser.open(str(a))
+                    cap.release()
+                    cv2.destroyAllWindows()
 
                 # Multi Language Translator
                 elif "translate" in query:
