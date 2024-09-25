@@ -456,7 +456,8 @@ if __name__ == "__main__":
                 #     url="https://www.cricbuzz.com/"
                 #     page=requests.get(url)
                 #     soup=BeautifulSoup(page.text,"html.parser")
-                #     team1=soup.find_all(class_="cb-ovr-flo cb-hmscg-tm-nm")[0].get_text()
+                #     team1=soup.find_all(class_="cb-ovr-f
+                # lo cb-hmscg-tm-nm")[0].get_text()
                 #     team2=soup.find_all(class_="cb-ovr-flo cb-hmscg-tm-nm")[1].get_text()
                 #     team1_score=soup.find_all(class_="cb-ovr-flo")[8].get_text()
                 #     team2_score=soup.find_all(class_="cb-ovr-flo")[10].get_text()
@@ -489,7 +490,7 @@ if __name__ == "__main__":
                     #         os.startfile(codePath)
 
                 # Email
-                elif "send email" in query:
+                elif "send an email" in query:
                     from sendmail import send_email
                     speak("Whom do you want to email")
                     to_email = input("Enter the Recipient email : ")
@@ -579,5 +580,6 @@ if __name__ == "__main__":
                         converted_audio = gtts.gTTS(
                             translated_text, lang=LANGUAGES.get(target_language))
                         converted_audio.save("translate.mp3")
+                        # converted_audio.close()
                         playsound.playsound("translate.mp3")
                         print(translated_text)
